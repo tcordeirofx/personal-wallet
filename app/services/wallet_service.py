@@ -3,7 +3,7 @@ from uuid import UUID
 
 from app.repositories.memory_repository import AssetRepository, EntryRepository
 from app.schemas.entry import WalletEntry
-from app.schemas.wallet import AllocationByType, AssetPosition, WalletSummary
+from app.schemas.wallet import WalletAllocationResponse, WalletPositionResponse, WalletSummaryResponse
 
 
 class WalletService:
@@ -11,7 +11,7 @@ class WalletService:
         self._asset_repo = asset_repo
         self._entry_repo = entry_repo
 
-    def get_positions(self) -> list[AssetPosition]:
+    def get_positions(self) -> list[WalletPositionResponse]:
         all_entries = self._entry_repo.list_all()
         if not all_entries:
             return []
@@ -20,7 +20,7 @@ class WalletService:
         for entry in all_entries:
             grouped[entry.asset_id].append(entry)
 
-        positions: list[AssetPosition] = []
+        positions: list[WalletPositionResponse] = []
         for asset_id, entries in grouped.items():
             asset = self._asset_repo.get_by_id(asset_id)
             if asset is None:
@@ -35,7 +35,7 @@ class WalletService:
             profit_loss = current_amount - invested_amount
             profit_loss_percentage = (profit_loss / invested_amount * 100) if invested_amount > 0 else 0.0
 
-            positions.append(AssetPosition(
+            positions.append(WalletPositionResponse(
                 asset_id=asset.id,
                 symbol=asset.symbol,
                 name=asset.name,
@@ -52,11 +52,11 @@ class WalletService:
 
         return positions
 
-    def get_summary(self) -> WalletSummary:
+    def get_summary(self) -> WalletSummaryResponse:
         positions = self.get_positions()
 
         if not positions:
-            return WalletSummary(
+            return WalletSummaryResponse(
                 total_assets=0,
                 total_quantity=0.0,
                 total_invested=0.0,
@@ -78,7 +78,7 @@ class WalletService:
             by_type[p.asset_type] += p.current_amount
 
         allocation = [
-            AllocationByType(
+            WalletAllocationResponse(
                 asset_type=atype,
                 current_amount=amount,
                 percentage=(amount / total_current * 100) if total_current > 0 else 0.0,
@@ -86,7 +86,7 @@ class WalletService:
             for atype, amount in by_type.items()
         ]
 
-        return WalletSummary(
+        return WalletSummaryResponse(
             total_assets=len(positions),
             total_quantity=sum(p.total_quantity for p in positions),
             total_invested=total_invested,

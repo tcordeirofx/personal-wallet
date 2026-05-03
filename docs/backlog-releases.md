@@ -37,7 +37,7 @@
 ## Release 4 - Consultas de carteira
 - [x] Implementar consulta de posições consolidadas.
 - [x] Implementar resumo geral da carteira.
-- [ ] Revisar contratos de resposta dos endpoints de consulta.
+- [x] Revisar contratos de resposta dos endpoints de consulta.
 - [ ] Criar testes automatizados para consultas de carteira.
 
 ## Release 5 - Qualidade e estabilização

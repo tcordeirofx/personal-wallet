@@ -2,7 +2,7 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
-class AssetPosition(BaseModel):
+class WalletPositionResponse(BaseModel):
     asset_id: UUID
     symbol: str
     name: str
@@ -17,17 +17,17 @@ class AssetPosition(BaseModel):
     profit_loss_percentage: float
 
 
-class AllocationByType(BaseModel):
+class WalletAllocationResponse(BaseModel):
     asset_type: str
     current_amount: float
     percentage: float
 
 
-class WalletSummary(BaseModel):
+class WalletSummaryResponse(BaseModel):
     total_assets: int
     total_quantity: float
     total_invested: float
     total_current: float
     total_profit_loss: float
     total_profit_loss_percentage: float
-    allocation_by_asset_type: list[AllocationByType]
+    allocation_by_asset_type: list[WalletAllocationResponse]
