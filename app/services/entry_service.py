@@ -11,3 +11,6 @@ class EntryService:
         if self._asset_repo.get_by_id(data.asset_id) is None:
             raise ValueError(f"Asset '{data.asset_id}' not found")
         return self._entry_repo.create(data)
+
+    def list_all(self) -> list[WalletEntry]:
+        return self._entry_repo.list_all()
