@@ -12,7 +12,7 @@
 - [x] Ajustar .gitignore inicial para projeto Python/FastAPI.
 
 ## Release 1 - Estrutura base da API
-- [ ] Criar estrutura inicial da aplicação FastAPI.
+- [x] Criar estrutura inicial da aplicação FastAPI.
 - [ ] Definir modelos Pydantic iniciais (ativo e entrada).
 - [ ] Organizar camadas (routers, services, repositories).
 - [ ] Implementar armazenamento em memória para MVP.

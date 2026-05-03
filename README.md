@@ -25,6 +25,27 @@ O MVP (offline, com armazenamento em memória) deve evoluir para permitir:
 - recomendação financeira;
 - uso de GenAI dentro da aplicação.
 
+## Pré-requisitos
+
+- Python 3.11 ou superior
+- make
+
+Validar o ambiente:
+
+```bash
+python3 --version
+make --version
+```
+
+## Ambiente virtual
+
+O projeto usa um virtual environment local em `.venv/`.
+`make install` cria o ambiente automaticamente caso ele não exista e instala as dependências dentro dele:
+
+```bash
+make install
+```
+
 ## Stack prevista
 - Python
 - FastAPI
