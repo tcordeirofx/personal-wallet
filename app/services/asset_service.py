@@ -1,5 +1,7 @@
+from uuid import UUID
+
 from app.repositories.memory_repository import AssetRepository
-from app.schemas.asset import Asset, AssetCreate
+from app.schemas.asset import Asset, AssetCreate, AssetUpdate
 
 
 class AssetService:
@@ -11,3 +13,6 @@ class AssetService:
 
     def list_all(self) -> list[Asset]:
         return self._repo.list_all()
+
+    def update(self, asset_id: UUID, data: AssetUpdate) -> Asset | None:
+        return self._repo.update(asset_id, data)

@@ -22,7 +22,7 @@
 ## Release 2 - Gestão de ativos
 - [x] Implementar cadastro de ativo.
 - [x] Implementar listagem de ativos.
-- [ ] Implementar atualização de ativo.
+- [x] Implementar atualização de ativo.
 - [ ] Implementar remoção de ativo.
 - [ ] Adicionar validações de domínio básicas para ativo.
 - [ ] Criar testes automatizados para gestão de ativos.
