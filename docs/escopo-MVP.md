@@ -32,10 +32,12 @@ Definir uma micro API offline para controle básico de carteira de ativos de ren
 - MVP operará **offline**.
 - Armazenamento será **em memória**.
 - API será construída com FastAPI e modelos com Pydantic.
-- A cobertura de testes será adicionada em etapas futuras.
+- Os testes serão adicionados de forma incremental, acompanhando a evolução das funcionalidades.
 
 ## Critérios de aceite do escopo
 - Escopo funcional do MVP documentado e alinhado com objetivo inicial.
 - Limites de escopo (não objetivos) explicitamente registrados.
 - Premissa de operação offline claramente definida.
 - Documento apto para orientar backlog e implementação incremental.
+- As funcionalidades devem ser acompanhadas por testes automatizados mínimos.
+- A documentação deve ser atualizada conforme o backlog evoluir.
