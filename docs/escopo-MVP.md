@@ -1,3 +1,5 @@
+← [README principal](../README.md) · [Índice da documentação](README.md)
+
 # Escopo do MVP - Personal Wallet API
 
 ## Objetivo
@@ -52,3 +54,7 @@ Micro API offline para controle básico de carteira de ativos de renda variável
 - Operação offline garantida — sem chamadas a serviços externos.
 - `make test` passa; `make run` inicializa a API.
 - Documentação interativa disponível em `/docs`.
+
+---
+
+← [README principal](../README.md) · [Índice da documentação](README.md)

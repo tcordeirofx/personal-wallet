@@ -21,11 +21,12 @@ Todo o armazenamento é em memória. Ao reiniciar a API, os dados são perdidos 
 
 | Artefato | Arquivo | Conteúdo |
 |---|---|---|
+| Índice da documentação | [`docs/`](docs/README.md) | Ponto de entrada para todos os artefatos técnicos |
 | Escopo do MVP | [`docs/escopo-MVP.md`](docs/escopo-MVP.md) | Funcionalidades implementadas, premissas e limites |
 | Requisitos | [`docs/requisitos.md`](docs/requisitos.md) | RF, RNF, regras de negócio, fora de escopo e critérios de aceite |
 | Backlog | [`docs/backlog-releases.md`](docs/backlog-releases.md) | Evolução incremental por release com checkboxes |
-| Arquitetura | [`docs/arquitetura-componentes.mmd`](docs/arquitetura-componentes.mmd) | Diagrama Mermaid de camadas (routers, services, repositories, schemas, testes) |
-| Prompts | [`prompts/`](prompts/) | Todos os prompts CO-STAR usados no desenvolvimento, em ordem |
+| Arquitetura | [`docs/arquitetura-componentes.md`](docs/arquitetura-componentes.md) | Diagrama e explicação das camadas da aplicação |
+| Prompts | [`prompts/`](prompts/README.md) | Índice comentado de todos os prompts CO-STAR usados no desenvolvimento |
 
 ## Tecnologias
 

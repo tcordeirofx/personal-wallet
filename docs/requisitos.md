@@ -1,3 +1,5 @@
+← [README principal](../README.md) · [Índice da documentação](README.md)
+
 # Requisitos - Personal Wallet API
 
 ## Requisitos Funcionais
@@ -64,3 +66,7 @@
 - `make test` passa com 56 ou mais testes.
 - A API inicializa via `make run` em ambiente Python 3.11+.
 - Documentação interativa acessível em `/docs`.
+
+---
+
+← [README principal](../README.md) · [Índice da documentação](README.md)
