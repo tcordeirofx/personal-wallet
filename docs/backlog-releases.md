@@ -17,7 +17,7 @@
 - [x] Organizar camadas (routers, services, repositories).
 - [x] Implementar armazenamento em memória para MVP.
 - [x] Criar endpoint de health check.
-- [ ] Criar teste automatizado para health check.
+- [x] Criar teste automatizado para health check.
 
 ## Release 2 - Gestão de ativos
 - [ ] Implementar cadastro de ativo.
