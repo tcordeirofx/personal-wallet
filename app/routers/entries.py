@@ -1,4 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from uuid import UUID
+
+from fastapi import APIRouter, HTTPException, Response
 
 from app.dependencies import asset_repository, entry_repository
 from app.schemas.entry import WalletEntry, WalletEntryCreate
@@ -20,3 +22,10 @@ def create_entry(data: WalletEntryCreate) -> WalletEntry:
         return _service.create(data)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.delete("/{entry_id}/", status_code=204)
+def delete_entry(entry_id: UUID) -> Response:
+    if not _service.delete(entry_id):
+        raise HTTPException(status_code=404, detail="Entry not found")
+    return Response(status_code=204)

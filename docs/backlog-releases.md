@@ -30,7 +30,7 @@
 ## Release 3 - Entradas/Transações
 - [x] Implementar registro de entrada.
 - [x] Implementar listagem de histórico de entradas.
-- [ ] Implementar remoção/cancelamento de entrada.
+- [x] Implementar remoção/cancelamento de entrada.
 - [ ] Garantir consistência mínima entre ativo e entradas.
 - [ ] Criar testes automatizados para entradas/transações.
 

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from app.repositories.memory_repository import AssetRepository, EntryRepository
 from app.schemas.entry import WalletEntry, WalletEntryCreate
 
@@ -14,3 +16,6 @@ class EntryService:
 
     def list_all(self) -> list[WalletEntry]:
         return self._entry_repo.list_all()
+
+    def delete(self, entry_id: UUID) -> bool:
+        return self._entry_repo.delete(entry_id)
