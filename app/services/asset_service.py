@@ -16,3 +16,6 @@ class AssetService:
 
     def update(self, asset_id: UUID, data: AssetUpdate) -> Asset | None:
         return self._repo.update(asset_id, data)
+
+    def delete(self, asset_id: UUID) -> bool:
+        return self._repo.delete(asset_id)

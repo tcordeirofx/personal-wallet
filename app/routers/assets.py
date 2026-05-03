@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Response
 
 from app.schemas.asset import Asset, AssetCreate, AssetUpdate
 from app.services.asset_service import AssetService
@@ -26,3 +26,10 @@ def update_asset(asset_id: UUID, data: AssetUpdate) -> Asset:
     if asset is None:
         raise HTTPException(status_code=404, detail="Asset not found")
     return asset
+
+
+@router.delete("/{asset_id}/", status_code=204)
+def delete_asset(asset_id: UUID) -> Response:
+    if not _service.delete(asset_id):
+        raise HTTPException(status_code=404, detail="Asset not found")
+    return Response(status_code=204)

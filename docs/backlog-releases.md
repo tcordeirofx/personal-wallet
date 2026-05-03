@@ -23,7 +23,7 @@
 - [x] Implementar cadastro de ativo.
 - [x] Implementar listagem de ativos.
 - [x] Implementar atualização de ativo.
-- [ ] Implementar remoção de ativo.
+- [x] Implementar remoção de ativo.
 - [ ] Adicionar validações de domínio básicas para ativo.
 - [ ] Criar testes automatizados para gestão de ativos.
 
