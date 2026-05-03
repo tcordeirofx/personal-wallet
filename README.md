@@ -8,7 +8,7 @@ Controlar uma carteira de renda variável exige rastrear ativos, registrar compr
 
 ## Objetivo do MVP
 
-Demonstrar, em contexto acadêmico, o desenvolvimento incremental de uma micro API com separação de responsabilidades, testes automatizados e uso de IA generativa no processo de desenvolvimento — não na aplicação em runtime.
+Demonstrar, em contexto acadêmico, o desenvolvimento incremental de uma micro API com separação de responsabilidades, testes automatizados e uso de IA generativa no processo de desenvolvimento.
 
 O MVP suporta:
 - gestão completa de ativos (CRUD com validações de domínio);
@@ -16,6 +16,16 @@ O MVP suporta:
 - consulta de posições consolidadas e resumo geral da carteira.
 
 Todo o armazenamento é em memória. Ao reiniciar a API, os dados são perdidos — comportamento esperado para este MVP.
+
+## Documentação do projeto
+
+| Artefato | Arquivo | Conteúdo |
+|---|---|---|
+| Escopo do MVP | [`docs/escopo-MVP.md`](docs/escopo-MVP.md) | Funcionalidades implementadas, premissas e limites |
+| Requisitos | [`docs/requisitos.md`](docs/requisitos.md) | RF, RNF, regras de negócio, fora de escopo e critérios de aceite |
+| Backlog | [`docs/backlog-releases.md`](docs/backlog-releases.md) | Evolução incremental por release com checkboxes |
+| Arquitetura | [`docs/arquitetura-componentes.mmd`](docs/arquitetura-componentes.mmd) | Diagrama Mermaid de camadas (routers, services, repositories, schemas, testes) |
+| Prompts | [`prompts/`](prompts/) | Todos os prompts CO-STAR usados no desenvolvimento, em ordem |
 
 ## Tecnologias
 
@@ -148,14 +158,14 @@ curl -s http://127.0.0.1:8000/wallet/summary/ | python3 -m json.tool
 
 ## Uso de IA generativa no desenvolvimento
 
-Este projeto foi desenvolvido com assistência de IA generativa (Claude) ao longo de todo o ciclo:
+Este projeto foi desenvolvido com assistência de dois modelos de IA generativa ao longo do ciclo:
 
-- **Elicitação de requisitos**: prompts CO-STAR para definir escopo, backlog e arquitetura.
-- **Geração assistida de código**: cada incremento foi produzido a partir de um prompt estruturado registrado em `prompts/`.
-- **Revisão e qualidade**: ajuste de padrões, isolamento de testes e contratos de resposta.
-- **Documentação**: geração e revisão da documentação técnica.
+- **Elicitação de requisitos**: OpenAI Codex — apoio na definição de escopo, backlog e estrutura inicial de prompts CO-STAR.
+- **Geração assistida de código**: Claude (Anthropic) — cada incremento foi produzido a partir de um prompt estruturado registrado em `prompts/`.
+- **Revisão e qualidade**: Claude — ajuste de padrões, isolamento de testes e contratos de resposta.
+- **Documentação**: Claude — geração e revisão da documentação técnica.
 
-A IA **não está presente em runtime** na aplicação. Não há chamadas a modelos de linguagem durante a execução da API.
+Nenhum dos dois modelos **está presente em runtime** na aplicação. Não há chamadas a modelos de linguagem durante a execução da API.
 
 Todos os prompts utilizados estão versionados em `prompts/` para transparência e reprodutibilidade.
 
