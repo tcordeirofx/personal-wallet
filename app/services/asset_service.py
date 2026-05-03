@@ -8,3 +8,6 @@ class AssetService:
 
     def create(self, data: AssetCreate) -> Asset:
         return self._repo.create(data)
+
+    def list_all(self) -> list[Asset]:
+        return self._repo.list_all()
