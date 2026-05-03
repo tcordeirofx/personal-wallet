@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 
+from app.routers.assets import router as assets_router
+
 app = FastAPI(
     title="Personal Wallet API",
     description="Micro API offline para controle de carteira de ativos de renda variável.",
     version="0.1.0",
 )
+
+app.include_router(assets_router)
 
 
 @app.get("/health")

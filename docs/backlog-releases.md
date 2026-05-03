@@ -20,7 +20,7 @@
 - [x] Criar teste automatizado para health check.
 
 ## Release 2 - Gestão de ativos
-- [ ] Implementar cadastro de ativo.
+- [x] Implementar cadastro de ativo.
 - [ ] Implementar listagem de ativos.
 - [ ] Implementar atualização de ativo.
 - [ ] Implementar remoção de ativo.
