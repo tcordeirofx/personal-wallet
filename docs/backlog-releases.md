@@ -24,7 +24,7 @@
 - [x] Implementar listagem de ativos.
 - [x] Implementar atualização de ativo.
 - [x] Implementar remoção de ativo.
-- [ ] Adicionar validações de domínio básicas para ativo.
+- [x] Adicionar validações de domínio básicas para ativo.
 - [ ] Criar testes automatizados para gestão de ativos.
 
 ## Release 3 - Entradas/Transações

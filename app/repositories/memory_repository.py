@@ -20,6 +20,9 @@ class AssetRepository:
     def get_by_id(self, id: UUID) -> Asset | None:
         return self._store.get(id)
 
+    def get_by_symbol(self, symbol: str) -> Asset | None:
+        return next((a for a in self._store.values() if a.symbol == symbol), None)
+
     def update(self, id: UUID, data: AssetUpdate) -> Asset | None:
         asset = self._store.get(id)
         if asset is None:

@@ -17,12 +17,18 @@ def list_assets() -> list[Asset]:
 
 @router.post("/", status_code=201, response_model=Asset)
 def create_asset(data: AssetCreate) -> Asset:
-    return _service.create(data)
+    try:
+        return _service.create(data)
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
 
 
 @router.put("/{asset_id}/", response_model=Asset)
 def update_asset(asset_id: UUID, data: AssetUpdate) -> Asset:
-    asset = _service.update(asset_id, data)
+    try:
+        asset = _service.update(asset_id, data)
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
     if asset is None:
         raise HTTPException(status_code=404, detail="Asset not found")
     return asset
