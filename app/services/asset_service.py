@@ -29,6 +29,7 @@ class AssetService:
         return self._repo.update(asset_id, data)
 
     def delete(self, asset_id: UUID) -> bool:
+        """Remove asset; raises ValueError if entry_repo is set and the asset has associated entries."""
         if self._entry_repo is not None:
             entries = self._entry_repo.list_by_asset(asset_id)
             if entries:

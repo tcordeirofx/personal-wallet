@@ -38,10 +38,9 @@ Endpoints entregues: `GET /health`, CRUD completo de `/assets/`, CRUD parcial de
 
 ### Pontos de atenção técnicos
 
-- **`float` para valores monetários**: os campos `quantity`, `unit_price`, `average_price` e derivados usam `float`. Em carteiras com muitas entradas, o acúmulo de erros de ponto flutuante pode produzir imprecisões nas casas decimais. A migração para `Decimal` resolveria isso.
 - **`_service` como singleton de módulo**: a instância `_service` em cada router é compartilhada entre todas as requisições. O armazenamento em memória funciona porque o processo é único, mas esse padrão não escala para ambientes com múltiplos workers sem adaptação.
 - **Thread safety ausente**: o `dict` interno dos repositórios não usa locks. Requisições simultâneas podem produzir estado inconsistente em ambientes com concorrência real.
-- **`entry_repo=None` em `AssetService`**: o parâmetro opcional permite que testes instanciem o service sem a verificação de consistência. É uma decisão funcional, mas pode surpreender quem mantiver o código sem contexto.
+- **`entry_repo=None` em `AssetService`**: o parâmetro opcional permite que testes instanciem o service sem a verificação de consistência. O comportamento está documentado em docstring no próprio método.
 
 ---
 
@@ -77,10 +76,7 @@ A documentação foi produzida incrementalmente e revisada na Release 5.
 | `docs/backlog-releases.md` | Evolução completa do projeto com checkboxes |
 | `prompts/README.md` | Índice dos 28 prompts com padrão CO-STAR explicado |
 
-**Lacuna identificada**: nenhum método ou classe possui docstring. Os casos mais relevantes para documentação interna seriam:
-- `WalletService.get_positions()` — a lógica de `last_unit_price` via `max(..., key=created_at)` não é óbvia.
-- `AssetService.delete()` — o comportamento condicional com `entry_repo=None` merece explicação.
-- `AssetRepository` / `EntryRepository` — a volatilidade dos dados ao reiniciar a API vale ser registrada em docstring de classe.
+Docstrings foram adicionadas nos pontos não-óbvios: `WalletService.get_positions()` (lógica de `last_unit_price`), `AssetService.delete()` (comportamento condicional com `entry_repo`) e nas classes `AssetRepository` / `EntryRepository` (volatilidade dos dados).
 
 ---
 
@@ -102,7 +98,6 @@ Cada incremento foi conduzido por um prompt CO-STAR registrado em `prompts/`. O 
 | Limitação | Impacto | Mitigação futura |
 |---|---|---|
 | Dados em memória | Perdidos ao reiniciar a API | Adicionar persistência (SQLite, PostgreSQL) |
-| `float` para valores monetários | Imprecisão em casas decimais | Migrar para `Decimal` |
 | Sem autenticação | Qualquer cliente acessa todos os dados | Implementar OAuth2 ou API key |
 | Sem concorrência segura | Possível estado inconsistente com múltiplos workers | Adicionar locks ou usar banco de dados com transações |
 | Preço sem cotação externa | `last_unit_price` depende de entrada manual | Integrar com API de cotações |
@@ -112,7 +107,6 @@ Cada incremento foi conduzido por um prompt CO-STAR registrado em `prompts/`. O 
 
 ## Riscos e pontos de atenção
 
-- **Imprecisão monetária**: testes passam com `pytest.approx`, mas a imprecisão existe. Para uso financeiro real, `float` é inadequado.
 - **Singleton sem isolamento em produção**: `_service = AssetService(...)` a nível de módulo funciona em processo único, mas não é adequado para deploy com múltiplos workers (Gunicorn, etc.) sem revisão da gestão de estado.
 - **Sem validação de tipos de ativo**: `asset_type` aceita qualquer string não-vazia. Um `Enum` ou lista de valores permitidos tornaria o contrato mais robusto.
 - **`entry_repo=None` como design decision implícita**: quem não conhecer o histórico do projeto pode remover o parâmetro sem perceber que isso desativa a verificação de consistência.
@@ -123,12 +117,11 @@ Cada incremento foi conduzido por um prompt CO-STAR registrado em `prompts/`. O 
 
 1. **Persistência**: migrar para SQLite (mínimo) ou PostgreSQL com SQLAlchemy.
 2. **Autenticação**: adicionar autenticação por API key ou OAuth2.
-3. **`Decimal` para valores financeiros**: substituir `float` em todos os campos monetários.
-4. **Injeção de dependência com FastAPI `Depends`**: substituir o padrão `_service` de módulo por DI nativa do framework.
-5. **`Enum` para `asset_type`**: restringir os tipos aceitos a valores conhecidos (ação, FII, ETF, etc.).
-6. **Registro de vendas**: modelar transações de venda para permitir cálculo de P&L realizado.
-7. **Integração com cotações externas**: substituir `last_unit_price` manual por preço de mercado.
-8. **PortfolioAdvisor**: funcionalidade futura de recomendação assistida por IA, fora do escopo deste MVP.
+3. **Injeção de dependência com FastAPI `Depends`**: substituir o padrão `_service` de módulo por DI nativa do framework.
+4. **`Enum` para `asset_type`**: restringir os tipos aceitos a valores conhecidos (ação, FII, ETF, etc.).
+5. **Registro de vendas**: modelar transações de venda para permitir cálculo de P&L realizado.
+6. **Integração com cotações externas**: substituir `last_unit_price` manual por preço de mercado.
+7. **PortfolioAdvisor**: funcionalidade futura de recomendação assistida por IA, fora do escopo deste MVP.
 
 ---
 
@@ -136,7 +129,7 @@ Cada incremento foi conduzido por um prompt CO-STAR registrado em `prompts/`. O 
 
 O MVP cumpre o escopo proposto. A implementação é coerente, testada e documentada em nível adequado para o contexto acadêmico e para demonstração do uso de GenAI no processo de desenvolvimento.
 
-Os principais riscos técnicos — uso de `float` para valores monetários e ausência de thread safety — são aceitáveis no contexto offline e de processo único do MVP, mas devem ser endereçados antes de qualquer uso em produção.
+O principal risco técnico remanescente — ausência de thread safety no armazenamento em memória — é aceitável no contexto offline e de processo único do MVP, mas deve ser endereçado antes de qualquer uso em produção.
 
 O uso de IA generativa foi documentado, rastreável e revisado em cada etapa. O processo demonstra que é possível desenvolver software incrementalmente com assistência de modelos de linguagem sem abrir mão de qualidade, testes e documentação.
 

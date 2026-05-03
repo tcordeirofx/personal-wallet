@@ -6,6 +6,8 @@ from app.schemas.entry import WalletEntry, WalletEntryCreate
 
 
 class AssetRepository:
+    """In-memory asset store. State is lost on process restart."""
+
     def __init__(self) -> None:
         self._store: dict[UUID, Asset] = {}
 
@@ -39,6 +41,8 @@ class AssetRepository:
 
 
 class EntryRepository:
+    """In-memory entry store. State is lost on process restart."""
+
     def __init__(self) -> None:
         self._store: dict[UUID, WalletEntry] = {}
 

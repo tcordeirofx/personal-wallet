@@ -1,9 +1,12 @@
 from collections import defaultdict
+from decimal import Decimal
 from uuid import UUID
 
 from app.repositories.memory_repository import AssetRepository, EntryRepository
 from app.schemas.entry import WalletEntry
 from app.schemas.wallet import WalletAllocationResponse, WalletPositionResponse, WalletSummaryResponse
+
+_ZERO = Decimal(0)
 
 
 class WalletService:
@@ -12,6 +15,7 @@ class WalletService:
         self._entry_repo = entry_repo
 
     def get_positions(self) -> list[WalletPositionResponse]:
+        """Return consolidated positions; last_unit_price uses the most recent entry by created_at."""
         all_entries = self._entry_repo.list_all()
         if not all_entries:
             return []
@@ -33,7 +37,7 @@ class WalletService:
             invested_amount = total_quantity * average_price
             current_amount = total_quantity * last_unit_price
             profit_loss = current_amount - invested_amount
-            profit_loss_percentage = (profit_loss / invested_amount * 100) if invested_amount > 0 else 0.0
+            profit_loss_percentage = (profit_loss / invested_amount * 100) if invested_amount > _ZERO else _ZERO
 
             positions.append(WalletPositionResponse(
                 asset_id=asset.id,
@@ -58,11 +62,11 @@ class WalletService:
         if not positions:
             return WalletSummaryResponse(
                 total_assets=0,
-                total_quantity=0.0,
-                total_invested=0.0,
-                total_current=0.0,
-                total_profit_loss=0.0,
-                total_profit_loss_percentage=0.0,
+                total_quantity=_ZERO,
+                total_invested=_ZERO,
+                total_current=_ZERO,
+                total_profit_loss=_ZERO,
+                total_profit_loss_percentage=_ZERO,
                 allocation_by_asset_type=[],
             )
 
@@ -70,10 +74,10 @@ class WalletService:
         total_current = sum(p.current_amount for p in positions)
         total_profit_loss = total_current - total_invested
         total_profit_loss_percentage = (
-            total_profit_loss / total_invested * 100 if total_invested > 0 else 0.0
+            total_profit_loss / total_invested * 100 if total_invested > _ZERO else _ZERO
         )
 
-        by_type: dict[str, float] = defaultdict(float)
+        by_type: dict[str, Decimal] = defaultdict(lambda: _ZERO)
         for p in positions:
             by_type[p.asset_type] += p.current_amount
 
@@ -81,7 +85,7 @@ class WalletService:
             WalletAllocationResponse(
                 asset_type=atype,
                 current_amount=amount,
-                percentage=(amount / total_current * 100) if total_current > 0 else 0.0,
+                percentage=(amount / total_current * 100) if total_current > _ZERO else _ZERO,
             )
             for atype, amount in by_type.items()
         ]
