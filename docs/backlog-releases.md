@@ -41,7 +41,7 @@
 - [x] Criar testes automatizados para consultas de carteira.
 
 ## Release 5 - Qualidade e estabilização
-- [ ] Revisar suíte de testes com Pytest.
+- [x] Revisar suíte de testes com Pytest.
 - [ ] Cobrir cenários adicionais de erro e borda.
 - [ ] Revisar documentação técnica.
 - [ ] Preparar checklist de entrega final do desafio.
