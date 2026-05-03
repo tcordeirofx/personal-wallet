@@ -3,7 +3,7 @@ from uuid import UUID
 
 from app.repositories.memory_repository import AssetRepository, EntryRepository
 from app.schemas.entry import WalletEntry
-from app.schemas.wallet import AssetPosition
+from app.schemas.wallet import AllocationByType, AssetPosition, WalletSummary
 
 
 class WalletService:
@@ -51,3 +51,47 @@ class WalletService:
             ))
 
         return positions
+
+    def get_summary(self) -> WalletSummary:
+        positions = self.get_positions()
+
+        if not positions:
+            return WalletSummary(
+                total_assets=0,
+                total_quantity=0.0,
+                total_invested=0.0,
+                total_current=0.0,
+                total_profit_loss=0.0,
+                total_profit_loss_percentage=0.0,
+                allocation_by_asset_type=[],
+            )
+
+        total_invested = sum(p.invested_amount for p in positions)
+        total_current = sum(p.current_amount for p in positions)
+        total_profit_loss = total_current - total_invested
+        total_profit_loss_percentage = (
+            total_profit_loss / total_invested * 100 if total_invested > 0 else 0.0
+        )
+
+        by_type: dict[str, float] = defaultdict(float)
+        for p in positions:
+            by_type[p.asset_type] += p.current_amount
+
+        allocation = [
+            AllocationByType(
+                asset_type=atype,
+                current_amount=amount,
+                percentage=(amount / total_current * 100) if total_current > 0 else 0.0,
+            )
+            for atype, amount in by_type.items()
+        ]
+
+        return WalletSummary(
+            total_assets=len(positions),
+            total_quantity=sum(p.total_quantity for p in positions),
+            total_invested=total_invested,
+            total_current=total_current,
+            total_profit_loss=total_profit_loss,
+            total_profit_loss_percentage=total_profit_loss_percentage,
+            allocation_by_asset_type=allocation,
+        )

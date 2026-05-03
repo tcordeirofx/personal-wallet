@@ -36,7 +36,7 @@
 
 ## Release 4 - Consultas de carteira
 - [x] Implementar consulta de posições consolidadas.
-- [ ] Implementar resumo geral da carteira.
+- [x] Implementar resumo geral da carteira.
 - [ ] Revisar contratos de resposta dos endpoints de consulta.
 - [ ] Criar testes automatizados para consultas de carteira.
 

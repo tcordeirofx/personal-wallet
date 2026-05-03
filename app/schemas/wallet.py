@@ -15,3 +15,19 @@ class AssetPosition(BaseModel):
     current_amount: float
     profit_loss: float
     profit_loss_percentage: float
+
+
+class AllocationByType(BaseModel):
+    asset_type: str
+    current_amount: float
+    percentage: float
+
+
+class WalletSummary(BaseModel):
+    total_assets: int
+    total_quantity: float
+    total_invested: float
+    total_current: float
+    total_profit_loss: float
+    total_profit_loss_percentage: float
+    allocation_by_asset_type: list[AllocationByType]
