@@ -26,6 +26,7 @@ Todo o armazenamento é em memória. Ao reiniciar a API, os dados são perdidos 
 | Requisitos | [`docs/requisitos.md`](docs/requisitos.md) | RF, RNF, regras de negócio, fora de escopo e critérios de aceite |
 | Backlog | [`docs/backlog-releases.md`](docs/backlog-releases.md) | Evolução incremental por release com checkboxes |
 | Arquitetura | [`docs/arquitetura-componentes.md`](docs/arquitetura-componentes.md) | Diagrama e explicação das camadas da aplicação |
+| Revisão final | [`docs/revisao-final.md`](docs/revisao-final.md) | Avaliação crítica da entrega: escopo, qualidade, testes, limitações e próximos passos |
 | Prompts | [`prompts/`](prompts/README.md) | Índice comentado de todos os prompts CO-STAR usados no desenvolvimento |
 
 ## Tecnologias

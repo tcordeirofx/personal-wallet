@@ -12,6 +12,7 @@ Esta pasta reúne os artefatos de documentação técnica do projeto.
 | [Requisitos](requisitos.md) | Requisitos funcionais, não funcionais, regras de negócio e critérios de aceite |
 | [Backlog por releases](backlog-releases.md) | Evolução incremental do projeto organizada por release com checkboxes |
 | [Arquitetura](arquitetura-componentes.md) | Visão geral das camadas, responsabilidades e diagrama de componentes |
+| [Revisão final](revisao-final.md) | Avaliação crítica da entrega: escopo, qualidade, testes, limitações e próximos passos |
 
 ## Ordem recomendada de leitura
 
@@ -19,5 +20,6 @@ Esta pasta reúne os artefatos de documentação técnica do projeto.
 2. **[Requisitos](requisitos.md)** — aprofunde-se nos RF, RNF e regras de negócio.
 3. **[Arquitetura](arquitetura-componentes.md)** — entenda como o código está organizado.
 4. **[Backlog por releases](backlog-releases.md)** — veja a evolução incremental etapa a etapa.
+5. **[Revisão final](revisao-final.md)** — leia a avaliação crítica da entrega completa.
 
 Para o histórico de prompts e o uso de IA generativa no desenvolvimento, consulte o [índice de prompts](../prompts/README.md).

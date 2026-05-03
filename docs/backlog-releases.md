@@ -46,4 +46,4 @@
 - [x] Revisar suíte de testes com Pytest.
 - [x] Cobrir cenários adicionais de erro e borda.
 - [x] Revisar documentação técnica.
-- [ ] Preparar checklist de entrega final do desafio.
+- [x] Preparar checklist de entrega final do desafio.
