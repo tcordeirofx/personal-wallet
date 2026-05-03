@@ -13,7 +13,7 @@
 
 ## Release 1 - Estrutura base da API
 - [x] Criar estrutura inicial da aplicação FastAPI.
-- [ ] Definir modelos Pydantic iniciais (ativo e entrada).
+- [x] Definir modelos Pydantic iniciais (ativo e entrada).
 - [ ] Organizar camadas (routers, services, repositories).
 - [ ] Implementar armazenamento em memória para MVP.
 - [ ] Criar endpoint de health check.
