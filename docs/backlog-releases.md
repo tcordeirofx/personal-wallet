@@ -38,7 +38,7 @@
 - [x] Implementar consulta de posições consolidadas.
 - [x] Implementar resumo geral da carteira.
 - [x] Revisar contratos de resposta dos endpoints de consulta.
-- [ ] Criar testes automatizados para consultas de carteira.
+- [x] Criar testes automatizados para consultas de carteira.
 
 ## Release 5 - Qualidade e estabilização
 - [ ] Revisar suíte de testes com Pytest.
