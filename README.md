@@ -2,28 +2,31 @@
 
 API offline para controle simples de carteira de ativos de renda variável.
 
-## Objetivo do projeto
-Este repositório faz parte de um desafio acadêmico para demonstrar uso de GenAI no desenvolvimento de software de forma incremental, documentada, testável e versionada.
+## Problema resolvido
 
-Nesta etapa inicial, o foco é estruturar o projeto com documentação de escopo, backlog, arquitetura mínima e padrão de prompts.
+Controlar uma carteira de renda variável exige rastrear ativos, registrar compras e calcular posições consolidadas. Esta API resolve esse problema de forma simples, local e sem dependências externas: instale, rode e use.
 
-## Proposta do MVP
-O MVP (offline, com armazenamento em memória) deve evoluir para permitir:
-- cadastro, listagem, atualização e remoção de ativos;
-- registro de entradas/transações da carteira;
-- listagem de histórico de entradas;
-- remoção/cancelamento de entrada;
-- consulta de posições consolidadas;
-- consulta de resumo geral da carteira.
+## Objetivo do MVP
 
-## Fora do escopo do MVP
-- cotação externa;
-- integração com corretora;
-- autenticação;
-- banco de dados;
-- cálculo tributário;
-- recomendação financeira;
-- uso de GenAI dentro da aplicação.
+Demonstrar, em contexto acadêmico, o desenvolvimento incremental de uma micro API com separação de responsabilidades, testes automatizados e uso de IA generativa no processo de desenvolvimento — não na aplicação em runtime.
+
+O MVP suporta:
+- gestão completa de ativos (CRUD com validações de domínio);
+- registro, listagem e cancelamento de entradas/transações;
+- consulta de posições consolidadas e resumo geral da carteira.
+
+Todo o armazenamento é em memória. Ao reiniciar a API, os dados são perdidos — comportamento esperado para este MVP.
+
+## Tecnologias
+
+| Tecnologia | Uso |
+|---|---|
+| Python 3.11+ | Linguagem principal |
+| FastAPI | Framework web e geração automática de OpenAPI/Swagger |
+| Pydantic | Validação e contratos de schemas |
+| Uvicorn | Servidor ASGI |
+| Pytest | Testes automatizados |
+| httpx | Client HTTP para testes com TestClient |
 
 ## Pré-requisitos
 
@@ -37,23 +40,130 @@ python3 --version
 make --version
 ```
 
-## Ambiente virtual
-
-O projeto usa um virtual environment local em `.venv/`.
-`make install` cria o ambiente automaticamente caso ele não exista e instala as dependências dentro dele:
+## Instalação
 
 ```bash
+git clone <url-do-repositorio>
+cd personal-wallet
 make install
 ```
 
-## Stack prevista
-- Python
-- FastAPI
-- Pydantic
-- Pytest
-- Armazenamento em memória
+`make install` cria `.venv/` automaticamente caso não exista e instala as dependências dentro dele.
 
-## Status atual
-- Projeto em fase de kickoff documental.
-- Sem implementação de código da aplicação nesta etapa.
-- Repositório preparado para evolução incremental nas próximas entregas.
+## Execução
+
+```bash
+make run
+# API disponível em http://127.0.0.1:8000
+```
+
+## Testes
+
+```bash
+make test
+# 56 testes — health, assets, entries, wallet, edge cases
+```
+
+## Documentação interativa
+
+Com a API em execução:
+
+- Swagger UI: http://127.0.0.1:8000/docs
+- ReDoc: http://127.0.0.1:8000/redoc
+- OpenAPI JSON: http://127.0.0.1:8000/openapi.json
+
+## Endpoints
+
+### Health
+
+| Método | Rota | Status |
+|---|---|---|
+| GET | `/health` | 200 |
+
+### Ativos
+
+| Método | Rota | Sucesso | Erros |
+|---|---|---|---|
+| GET | `/assets/` | 200 | — |
+| POST | `/assets/` | 201 | 409 (symbol duplicado), 422 (dados inválidos) |
+| PUT | `/assets/{asset_id}/` | 200 | 404 (não encontrado), 409 (symbol duplicado) |
+| DELETE | `/assets/{asset_id}/` | 204 | 404 (não encontrado), 409 (tem entradas associadas) |
+
+### Entradas
+
+| Método | Rota | Sucesso | Erros |
+|---|---|---|---|
+| GET | `/entries/` | 200 | — |
+| POST | `/entries/` | 201 | 404 (ativo não encontrado), 422 (dados inválidos) |
+| DELETE | `/entries/{entry_id}/` | 204 | 404 (não encontrada) |
+
+### Carteira
+
+| Método | Rota | Sucesso |
+|---|---|---|
+| GET | `/wallet/positions/` | 200 |
+| GET | `/wallet/summary/` | 200 |
+
+## Exemplos de uso
+
+### Cadastrar ativo
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/assets/ \
+  -H "Content-Type: application/json" \
+  -d '{"symbol":"PETR4","name":"Petrobras PN","asset_type":"stock","currency":"BRL"}' \
+  | python3 -m json.tool
+```
+
+### Registrar entrada
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/entries/ \
+  -H "Content-Type: application/json" \
+  -d '{"asset_id":"<uuid>","quantity":100,"unit_price":36.50}' \
+  | python3 -m json.tool
+```
+
+### Consultar posições consolidadas
+
+```bash
+curl -s http://127.0.0.1:8000/wallet/positions/ | python3 -m json.tool
+```
+
+### Consultar resumo da carteira
+
+```bash
+curl -s http://127.0.0.1:8000/wallet/summary/ | python3 -m json.tool
+```
+
+## Limites do MVP
+
+- **Sem persistência**: dados são perdidos ao reiniciar a API.
+- **Sem autenticação**: qualquer cliente tem acesso a todos os endpoints.
+- **Sem cotação externa**: o preço de referência atual é o `unit_price` da entrada mais recente do ativo.
+- **Sem cálculo tributário**.
+- **Sem integração com corretoras**.
+- **Sem suporte a vendas**: entradas representam compras; cancelamento de lançamento remove a entrada, não registra venda.
+- **Concorrência não garantida**: o armazenamento em memória não usa locks.
+
+## Uso de IA generativa no desenvolvimento
+
+Este projeto foi desenvolvido com assistência de IA generativa (Claude) ao longo de todo o ciclo:
+
+- **Elicitação de requisitos**: prompts CO-STAR para definir escopo, backlog e arquitetura.
+- **Geração assistida de código**: cada incremento foi produzido a partir de um prompt estruturado registrado em `prompts/`.
+- **Revisão e qualidade**: ajuste de padrões, isolamento de testes e contratos de resposta.
+- **Documentação**: geração e revisão da documentação técnica.
+
+A IA **não está presente em runtime** na aplicação. Não há chamadas a modelos de linguagem durante a execução da API.
+
+Todos os prompts utilizados estão versionados em `prompts/` para transparência e reprodutibilidade.
+
+## Próximos passos (fora do MVP)
+
+- Persistência em banco de dados relacional.
+- Autenticação e multi-usuário.
+- Integração com cotações externas.
+- Registro de vendas e cálculo de P&L realizado.
+- Cálculo tributário.
+- Recomendação assistida por IA (PortfolioAdvisor).

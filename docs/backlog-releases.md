@@ -42,6 +42,6 @@
 
 ## Release 5 - Qualidade e estabilização
 - [x] Revisar suíte de testes com Pytest.
-- [ ] Cobrir cenários adicionais de erro e borda.
-- [ ] Revisar documentação técnica.
+- [x] Cobrir cenários adicionais de erro e borda.
+- [x] Revisar documentação técnica.
 - [ ] Preparar checklist de entrega final do desafio.

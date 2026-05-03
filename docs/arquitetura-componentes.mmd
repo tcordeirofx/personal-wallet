@@ -1,37 +1,60 @@
 flowchart TD
     Client[Cliente HTTP]
+    Swagger[Swagger UI / OpenAPI]
 
-    subgraph API[FastAPI]
-        R1[/Rotas de Ativos/]
-        R2[/Rotas de Entradas/]
-        R3[/Rotas de Carteira/]
+    subgraph API[FastAPI — app/main.py]
+        RH[GET /health]
+        R1[/assets router/]
+        R2[/entries router/]
+        R3[/wallet router/]
     end
 
-    subgraph Services[Camada de Serviços]
+    subgraph Services[Serviços]
         S1[AssetService]
         S2[EntryService]
-        S3[PortfolioService]
+        S3[WalletService]
     end
 
-    subgraph Repositories[Camada de Repositórios]
+    subgraph Repositories[Repositórios]
         RepoA[AssetRepository]
         RepoE[EntryRepository]
     end
 
+    subgraph Schemas[Schemas Pydantic]
+        SC1[Asset / AssetCreate / AssetUpdate]
+        SC2[WalletEntry / WalletEntryCreate]
+        SC3[WalletPositionResponse / WalletSummaryResponse]
+    end
+
+    subgraph Tests[Testes — Pytest]
+        T1[test_health]
+        T2[test_assets / test_asset_validations]
+        T3[test_entries]
+        T4[test_wallet]
+        T5[test_edge_cases]
+    end
+
     Memory[(Armazenamento em Memória)]
 
-    Client --> R1
-    Client --> R2
-    Client --> R3
+    Client --> API
+    Swagger -. gerado por .-> API
 
     R1 --> S1
     R2 --> S2
     R3 --> S3
 
     S1 --> RepoA
+    S1 -.->|consistência| RepoE
+    S2 --> RepoA
     S2 --> RepoE
     S3 --> RepoA
     S3 --> RepoE
 
     RepoA --> Memory
     RepoE --> Memory
+
+    S1 --- SC1
+    S2 --- SC2
+    S3 --- SC3
+
+    Tests -.->|TestClient| API
