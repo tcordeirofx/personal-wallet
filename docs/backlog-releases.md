@@ -16,7 +16,7 @@
 - [x] Definir modelos Pydantic iniciais (ativo e entrada).
 - [x] Organizar camadas (routers, services, repositories).
 - [x] Implementar armazenamento em memória para MVP.
-- [ ] Criar endpoint de health check.
+- [x] Criar endpoint de health check.
 
 ## Release 2 - Gestão de ativos
 - [ ] Implementar cadastro de ativo.
