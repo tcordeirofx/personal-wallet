@@ -1,3 +1,3 @@
-from app.repositories.memory_repository import MemoryRepository
+from app.repositories.memory_repository import AssetRepository, EntryRepository
 
-__all__ = ["MemoryRepository"]
+__all__ = ["AssetRepository", "EntryRepository"]

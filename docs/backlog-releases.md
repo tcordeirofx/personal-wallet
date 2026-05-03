@@ -15,7 +15,7 @@
 - [x] Criar estrutura inicial da aplicação FastAPI.
 - [x] Definir modelos Pydantic iniciais (ativo e entrada).
 - [x] Organizar camadas (routers, services, repositories).
-- [ ] Implementar armazenamento em memória para MVP.
+- [x] Implementar armazenamento em memória para MVP.
 - [ ] Criar endpoint de health check.
 
 ## Release 2 - Gestão de ativos
