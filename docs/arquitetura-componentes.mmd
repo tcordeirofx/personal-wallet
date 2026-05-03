@@ -1,0 +1,37 @@
+flowchart TD
+    Client[Cliente HTTP]
+
+    subgraph API[FastAPI]
+        R1[/Rotas de Ativos/]
+        R2[/Rotas de Entradas/]
+        R3[/Rotas de Carteira/]
+    end
+
+    subgraph Services[Camada de Serviços]
+        S1[AssetService]
+        S2[EntryService]
+        S3[PortfolioService]
+    end
+
+    subgraph Repositories[Camada de Repositórios]
+        RepoA[AssetRepository]
+        RepoE[EntryRepository]
+    end
+
+    Memory[(Armazenamento em Memória)]
+
+    Client --> R1
+    Client --> R2
+    Client --> R3
+
+    R1 --> S1
+    R2 --> S2
+    R3 --> S3
+
+    S1 --> RepoA
+    S2 --> RepoE
+    S3 --> RepoA
+    S3 --> RepoE
+
+    RepoA --> Memory
+    RepoE --> Memory
