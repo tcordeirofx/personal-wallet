@@ -17,6 +17,7 @@
 - [x] Organizar camadas (routers, services, repositories).
 - [x] Implementar armazenamento em memória para MVP.
 - [x] Criar endpoint de health check.
+- [ ] Criar teste automatizado para health check.
 
 ## Release 2 - Gestão de ativos
 - [ ] Implementar cadastro de ativo.
@@ -24,20 +25,23 @@
 - [ ] Implementar atualização de ativo.
 - [ ] Implementar remoção de ativo.
 - [ ] Adicionar validações de domínio básicas para ativo.
+- [ ] Criar testes automatizados para gestão de ativos.
 
 ## Release 3 - Entradas/Transações
 - [ ] Implementar registro de entrada.
 - [ ] Implementar listagem de histórico de entradas.
 - [ ] Implementar remoção/cancelamento de entrada.
 - [ ] Garantir consistência mínima entre ativo e entradas.
+- [ ] Criar testes automatizados para entradas/transações.
 
 ## Release 4 - Consultas de carteira
 - [ ] Implementar consulta de posições consolidadas.
 - [ ] Implementar resumo geral da carteira.
 - [ ] Revisar contratos de resposta dos endpoints de consulta.
+- [ ] Criar testes automatizados para consultas de carteira.
 
 ## Release 5 - Qualidade e estabilização
-- [ ] Criar suíte inicial de testes com Pytest.
-- [ ] Cobrir fluxos principais e cenários de erro.
+- [ ] Revisar suíte de testes com Pytest.
+- [ ] Cobrir cenários adicionais de erro e borda.
 - [ ] Revisar documentação técnica.
 - [ ] Preparar checklist de entrega final do desafio.
