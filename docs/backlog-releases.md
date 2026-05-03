@@ -31,8 +31,8 @@
 - [x] Implementar registro de entrada.
 - [x] Implementar listagem de histórico de entradas.
 - [x] Implementar remoção/cancelamento de entrada.
-- [ ] Garantir consistência mínima entre ativo e entradas.
-- [ ] Criar testes automatizados para entradas/transações.
+- [x] Garantir consistência mínima entre ativo e entradas.
+- [x] Criar testes automatizados para entradas/transações.
 
 ## Release 4 - Consultas de carteira
 - [ ] Implementar consulta de posições consolidadas.
