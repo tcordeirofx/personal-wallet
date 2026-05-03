@@ -5,8 +5,8 @@ from app.schemas.asset import Asset, AssetCreate, AssetUpdate
 
 
 class AssetService:
-    def __init__(self) -> None:
-        self._repo = AssetRepository()
+    def __init__(self, repo: AssetRepository | None = None) -> None:
+        self._repo = repo if repo is not None else AssetRepository()
 
     def create(self, data: AssetCreate) -> Asset:
         if self._repo.get_by_symbol(data.symbol) is not None:

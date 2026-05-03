@@ -2,12 +2,13 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Response
 
+from app.dependencies import asset_repository
 from app.schemas.asset import Asset, AssetCreate, AssetUpdate
 from app.services.asset_service import AssetService
 
 router = APIRouter(prefix="/assets", tags=["assets"])
 
-_service = AssetService()
+_service = AssetService(repo=asset_repository)
 
 
 @router.get("/", response_model=list[Asset])

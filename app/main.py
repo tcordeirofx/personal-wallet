@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.routers.assets import router as assets_router
+from app.routers.entries import router as entries_router
 
 app = FastAPI(
     title="Personal Wallet API",
@@ -9,6 +10,7 @@ app = FastAPI(
 )
 
 app.include_router(assets_router)
+app.include_router(entries_router)
 
 
 @app.get("/health")

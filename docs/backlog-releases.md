@@ -28,7 +28,7 @@
 - [x] Criar testes automatizados para gestão de ativos.
 
 ## Release 3 - Entradas/Transações
-- [ ] Implementar registro de entrada.
+- [x] Implementar registro de entrada.
 - [ ] Implementar listagem de histórico de entradas.
 - [ ] Implementar remoção/cancelamento de entrada.
 - [ ] Garantir consistência mínima entre ativo e entradas.
